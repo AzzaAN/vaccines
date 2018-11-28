@@ -114,7 +114,7 @@ rule Rule_Hospital_Detail{
   participant(t): "org.example.empty.Hospital"
   operation: READ, CREATE
   resource(v): "org.example.empty.VaccineDetail"
-  condition: (v.hospital.getIdentifier() == t.getIdentifier())
+  condition: (v.vacRec.hospital.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
