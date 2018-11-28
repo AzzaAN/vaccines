@@ -1,0 +1,71 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace org.example.empty
+
+abstract participant Member identified by memberId {
+  o String memberId
+  o String name
+}
+participant Doc extends Member{}
+
+participant Physician extends Member{}
+
+participant Family extends Member{}
+
+participant School extends Member{}
+
+participant Insurance extends Member{}
+
+participant Hospital extends Member{}
+
+participant HealthAdmin extends Member{}
+
+asset VaccineRecord identified by vaccineRecordId{
+  o String vaccineRecordId
+ --> Family family
+ --> Hospital hospital optional
+ --> School school optional
+ --> Insurance insurance optional
+ --> VaccineDetail[] vaccineDetails
+}
+
+asset VaccineDetail identified by vaccineDetailId{
+ o String vaccineDetailId
+ o String vaccineName 
+ o String note optional
+ o Boolean signed optional
+ --> Physician physician 
+ --> Doc doc
+ --> VaccineRecord vacRec
+}
+
+abstract transaction DetailsTrans{
+   --> VaccineDetail detail
+}
+
+transaction DocNote extends DetailsTrans{
+ o String note
+}
+
+transaction PhysicianSignature extends DetailsTrans{
+ o Boolean signed
+}
+
+transaction CreateVaccineDetail{
+  o String vaccineName 
+  --> VaccineRecord vacRec
+  --> Physician physician 
+  --> Doc doc
+}
