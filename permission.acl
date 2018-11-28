@@ -12,6 +12,41 @@
  * limitations under the License.
  */
 
+rule Rule_Trans_RecAccessToHospital{
+  description: ""
+  participant(t): "org.example.empty.Family"
+  operation: CREATE
+  resource(v): "org.example.empty.RecAccessToHospital"
+  condition: (v.vaccineRecord.family.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule Rule_Trans_RecAccessToInsurance{
+  description: ""
+  participant(t): "org.example.empty.Family"
+  operation: CREATE
+  resource(v): "org.example.empty.RecAccessToInsurance"
+  condition: (v.vaccineRecord.family.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule Rule_Trans_RecAccessToSchool{
+  description: ""
+  participant(t): "org.example.empty.Family"
+  operation: CREATE
+  resource(v): "org.example.empty.RecAccessToSchool"
+  condition: (v.vaccineRecord.family.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule Rule_Trans_CreateVaccineRecord{
+  description: ""
+  participant: "org.example.empty.HealthAdmin"
+  operation: CREATE
+  resource: "org.example.empty.CreateVaccineRecord"
+  action: ALLOW
+}
+
 rule Rule_Trans_CreateVacDetail{
   description: ""
   participant(t): "org.example.empty.Hospital"
@@ -21,6 +56,14 @@ rule Rule_Trans_CreateVacDetail{
   action: ALLOW
 }
 
+rule Rule_Trans_PhysicianSignature{
+  description: ""
+  participant(t): "org.example.empty.Physician"
+  operation: CREATE
+  resource(v): "org.example.empty.PhysicianSignature"
+  condition: (v.detail.physician.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
 rule Rule_Trans_DocNote{
   description: ""
   participant(t): "org.example.empty.Doc"
