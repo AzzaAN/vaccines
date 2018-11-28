@@ -35,7 +35,7 @@ rule Rule_Insurance{
   participant(t): "org.example.empty.Insurance"
   operation: READ
   resource(v): "org.example.empty.VaccineRecord"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
+  condition: (v.insurance.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
@@ -44,7 +44,7 @@ rule Rule_School{
   participant(t): "org.example.empty.School"
   operation: READ
   resource(v): "org.example.empty.VaccineRecord"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
+  condition: (v.school.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
@@ -53,25 +53,25 @@ rule Rule_Family{
   participant(t): "org.example.empty.Family"
   operation: READ, UPDATE
   resource(v): "org.example.empty.VaccineRecord"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
+  condition: (v.family.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
-rule Rule_HealthAdmin{
-  description: ""
-  participant(t): "org.example.empty.HealthAdmin"
-  operation: READ, CREATE
-  resource(v): "org.example.empty.VaccineRecord"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
-  action: ALLOW
-}
-
-rule Rule_Hospital{
+rule Rule_Hospital_Detail{
   description: ""
   participant(t): "org.example.empty.Hospital"
   operation: READ, CREATE
   resource(v): "org.example.empty.VaccineDetail"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
+  condition: (v.hospital.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule Rule_Hospital_Record{
+  description: ""
+  participant(t): "org.example.empty.Hospital"
+  operation: READ, UPDATE
+  resource(v): "org.example.empty.VaccineRecord"
+  condition: (v.hospital.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
@@ -80,7 +80,7 @@ rule Rule_Physician {
   participant(t): "org.example.empty.Physician"
   operation: READ, UPDATE
   resource(v): "org.example.empty.VaccineDetail"
-  condition: (v.doc.getIdentifier() == t.getIdentifier())
+  condition: (v.physician.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
