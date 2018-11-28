@@ -41,9 +41,10 @@ rule Rule_Trans_RecAccessToSchool{
 
 rule Rule_Trans_CreateVaccineRecord{
   description: ""
-  participant: "org.example.empty.HealthAdmin"
+  participant(t): "org.example.empty.HealthAdmin"
   operation: CREATE
-  resource: "org.example.empty.CreateVaccineRecord"
+  resource(v): "org.example.empty.CreateVaccineRecord"
+  condition: (1 == 1)
   action: ALLOW
 }
 
@@ -70,6 +71,14 @@ rule Rule_Trans_DocNote{
   operation: CREATE
   resource(v): "org.example.empty.DocNote"
   condition: (v.detail.doc.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule Rule_HealthAdmin{
+  description: ""
+  participant: "org.example.empty.HealthAdmin"
+  operation: READ, CREATE
+  resource: "org.example.empty.VaccineRecord"
   action: ALLOW
 }
 
