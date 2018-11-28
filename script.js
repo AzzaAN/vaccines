@@ -69,6 +69,9 @@ async function DocNote(data) {
  * @transaction
  */
 async function PhysicianSignature(data) {
+   if(!data.detail.note){
+       throw new Error("The Vaccine Detail cannot be singed without a Doctor's Note");
+    }
     data.detail.signed = data.signed; 
     const assetRegistry = await getAssetRegistry(NS+'.VaccineDetail');
   
